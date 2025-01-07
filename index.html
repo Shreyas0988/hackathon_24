@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,9 +56,9 @@
                         <input type="text" id="eventName" name= "eventName" required>
                         <label for="eventDate">Date of event:</label>
                         <input type = "date" id="eventDate" name="eventDate"></input>
-                        <label for="eventTimeStart">Time when event starts:</label>
+                        <label for="eventTimeStart">Time when event starts:(optional)</label>
                         <input type = "time" id="eventTimeStart" name="eventTimeStart"></input>
-                        <label for="eventTimeEnd">Time when event ends:</label>
+                        <label for="eventTimeEnd">Time when event ends:(optional)</label>
                         <input type = "time" id="eventTimeEnd" name="eventTimeEnd"></input>
                         <button type="submit">Add event</button>
                         <button type="button" id="closePopup1">Cancel</button>
@@ -119,6 +118,8 @@
                 </div>
             </div>
         </div>
+        <div id="notification-container" class="notification-container hidden"></div>
+
     </main>
 
     <script src="calendar.js" defer></script>
