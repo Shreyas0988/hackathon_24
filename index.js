@@ -1,4 +1,4 @@
-//function to add tasks to the list
+//function to add elements to any list
 function addToList(str, elementId){
     const taskList = document.getElementById(elementId);
     console.log(`taskList : ${taskList}`);
@@ -7,6 +7,7 @@ function addToList(str, elementId){
     newTask.textContent = `${str}`;
     taskList.appendChild(newTask);
 }
+
 
 //check which link is active for the header
 const currentPage = window.location.pathname.split('/').pop();
@@ -86,28 +87,40 @@ function submitForm1(e) {//first option
 
     console.log(`Event Added: ${eventName}, Date: ${eventDate}, Start time: ${eventTimeStart}, End time: ${eventTimeEnd}`);
 
+    showNotification(`Event "${eventName}" added successfully!`);
     popup1.classList.add('hidden');
+    
     taskForm1.reset();
+    
 }
 
 function submitForm2(e) {//second option
     e.preventDefault();
     const link = document.getElementById('addLink').value;
     console.log(`Link Added: ${link}`);
-
+    
+    showNotification(`Calendar link added successfully!`);
     popup2.classList.add('hidden');
     taskForm2.reset();
 }
 
 function submitForm3(e) {//third option
     e.preventDefault();
-    const taskName = document.getElementById('taskName').value;
-    const taskDate = document.getElementById('taskDate').value;
-    const taskTimeStart = document.getElementById('taskTimeStart').value;
-    const taskTimeEnd = document.getElementById('taskTimeEnd').value;
+    const studyhabit = document.getElementById('studyHabit').value;
 
-    console.log(`Study Habit Added: ${taskName}, Date: ${taskDate}, Start time: ${taskTimeStart}, End time: ${taskTimeEnd}`);
+    console.log(`Study Habit Added: ${studyhabit}`);
 
+    showNotification(`Study Habit Added: ${studyhabit}`);
     popup3.classList.add('hidden');
     taskForm3.reset();
+}
+
+function showNotification(message, duration = 3000) {
+    const notificationContainer = document.getElementById('notification-container');
+    notificationContainer.textContent = message;
+    notificationContainer.classList.remove('hidden');
+
+    setTimeout(() => {
+        notificationContainer.classList.add('hidden');
+    }, duration);
 }
