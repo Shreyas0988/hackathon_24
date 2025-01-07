@@ -118,9 +118,20 @@ function submitForm3(e) {//third option
 function showNotification(message, duration = 3000) {
     const notificationContainer = document.getElementById('notification-container');
     notificationContainer.textContent = message;
-    notificationContainer.classList.remove('hidden');
+
+    //stops hiding it and shows
+    notificationContainer.classList.remove('hide');
+    notificationContainer.classList.add('show');
+
+    notificationContainer.style.right = '10px';
 
     setTimeout(() => {
-        notificationContainer.classList.add('hidden');
+        notificationContainer.classList.remove('show');
+        notificationContainer.classList.add('hide');
+
+        setTimeout(() => {
+            notificationContainer.style.right = '-300px';
+        }, 500);
+
     }, duration);
 }
