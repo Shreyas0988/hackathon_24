@@ -1,6 +1,6 @@
 //function to add tasks to the list
-function addTasks(str){
-    const taskList = document.getElementById('task-list');
+function addToList(str, elementId){
+    const taskList = document.getElementById(elementId);
     console.log(`taskList : ${taskList}`);
     const newTask = document.createElement('li');
     console.log(`taskList : ${newTask}`);
