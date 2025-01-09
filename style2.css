@@ -1,0 +1,326 @@
+:root {
+    margin: 0px;
+    --fc-border-color: black;
+    background-color: #B1E5F2;
+}
+
+html, body {
+    margin: 1px;
+    padding: 0;
+    height: 100%;
+}
+
+
+.header-container{
+    margin: 0px;
+    background-color: #DEF6DE;
+}
+.header{
+    padding-top : 9px;
+    padding-left : 22px;
+    padding-right : 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.left-header{
+    width : 315px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.right-header{
+    width : 315px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-link a{
+    font-size : 20px;
+    font-family : "poppins";
+    color : #757575;
+    text-decoration: none;
+}
+
+.header-link a.active {
+    color: #333333; 
+    border-bottom: 2px solid #333; 
+}
+.header-link a:hover {
+    color: #244855; 
+}
+
+.logo{
+    font-size : 96px;
+    font-family: "fredoka";
+    text-align: center;
+    letter-spacing: 25px;
+    font-weight: bold;
+    z-index : 2;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.wave-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #B1E5F2;
+    z-index: 2;
+    margin-bottom: -82px;
+    transition: transform 1s ease-out;
+}
+
+.wave-transition {
+    transform: translateY(100%); /* Moves the wave up or down */
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 2;
+}
+
+
+.header1, .header2{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.task-header, .event-header{
+    position: relative;
+    align-self : center;
+    text-align: center;
+    z-index : 1;
+    font-family : "poppins";
+    font-size : 48px;
+    font-weight : 500;
+    margin-top : 0px;
+    z-index: 10;
+    text-decoration: underline;
+
+}
+
+
+.addTasks, .addEvents{
+    z-index: 3;
+    background-color: #fbeee0;
+    border: 2px solid #422800;
+    border-radius: 30px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.addTasks:hover, .addEvents:hover {
+    background-color: #fff;
+}
+
+.addTasks:active, .addEvents:active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+
+
+#task-container, #event-container {
+    z-index: 2;
+    margin-top: 100px;
+    background-color: #285329;
+    height: 600px; 
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 100px;
+    border-radius: 5px;
+    padding-left : 90px;
+    padding-top : 25px;
+    overflow-y: auto; 
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /*goes to the next row if first row is out of space*/
+    gap: 20px; 
+}
+
+.widget-container, .event-widget-container {
+    background-color: #F2A1A1; 
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*hover effect when user hovers over widget*/
+.widget-container:hover, .event-widget-container:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.task-priority{
+    text-align: center;
+    font-size: 22px;
+    font-family: 'merriweather';
+    color: #333; 
+    margin-bottom: 15px;
+}
+
+.task-title, .event-title {
+    font-size: 24px;
+    font-family: "merriweather";
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+    text-align : center;
+}
+
+.task-time, .task-due, .event-date {
+    text-align: center;
+    font-size: 16px;
+    font-family: 'merriweather';
+    color: #555555; 
+    margin-bottom: 15px;
+}
+
+.task-complete, .event-complete {
+    display: flex;
+    align-self: center;
+    text-align: center;
+    background-color: #DEF6DE; 
+    color: #034f84; 
+    border: 2px solid #034f84; 
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0 auto
+}
+
+.task-complete:hover, .event-complete:hover {
+    background-color: #034f84;
+    color: #ffffff; 
+}
+
+
+.notification-container {
+    position: fixed;
+    bottom: 10px;
+    right: -300px; 
+    padding: 10px 20px;
+    background-color: #4caf50; 
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/*animation */
+.notification-container.show {
+    transform: translateX(-20px); 
+    opacity: 1;
+}
+
+/*hide animation */
+.notification-container.hide {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.empty-container.hide, .event-empty-container.hide{
+    position: absolute;
+    opacity : 0;
+    background-color: white;
+}
+.empty-container.show, .event-empty-container.show{
+    color : white;
+    position: absolute;
+    opacity : 1;
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight: bold;
+
+    right : 35%;
+}
+
+.color-change{
+    background-color: #FAF3E0;
+}
+
+
+.popup {
+    font-family: "roboto";
+    position: absolute;
+    top: 64%;
+    right: 2%;
+    background-color: #E3E2DF;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+}
+#popup2{
+    top:216.5%;
+}
+
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-content label {
+    margin-top: 10px;
+}
+
+.popup-content input,
+.popup-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup-content button {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-content button[type="submit"]{
+    background-color: #4CAF50;
+    color: white;
+}
+
+.popup-content button#closePopup1, .popup-content button#closePopup2, .popup-content button#closePopup3 {
+    background-color: #f44336;
+    color: white;
+}
