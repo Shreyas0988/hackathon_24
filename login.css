@@ -1,0 +1,57 @@
+:root {
+    background-image: url("images/white_background1.jpg");
+}
+.header{
+    background-color: white;
+    border: 5px solid black;
+}
+.greeting{
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight: 600;
+    text-align: center;
+}
+
+.logo{
+    font-size : 96px;
+    font-family: "fredoka";
+    text-align: center;
+    letter-spacing: 25px;
+    font-weight: 800;
+}
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+.login-box{
+    width : 455px;
+    height : 483px;
+    background-color: #C8E6C9;
+    border-radius : 36px;
+    margin-top : 60px;
+}
+
+.login-header{
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight : 600;
+    text-align: center;
+    padding : 15px;
+}
+.image-container{
+    appearance: none;
+    background-color: #E7E7E7;
+    width : 256px;
+    height : 243px;
+    border-radius : 36px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin : 70px auto; /*sets the top and bottom margins to 0, while setting left and right to auto(therefore moving it to center)*/
+}
+.image{
+    display: flex;
+    height: 100%;
+}
