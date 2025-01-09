@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class = "header-container">
+        <div class="header">
+            <div class="left-header">
+                <div class = "header-link"> <a href="dashboard.html">Dashboard</a></div>
+                <div class="header-link"><a href="tasks.html">Tasks</a></div>
+            </div>
+            <div class="right-header">
+                <div class="header-link"><a href="chatbot.html">ChatBot</a></div>
+                <div class="header-link"><a href="profile.html">Profile</a></div>
+            </div>
+        </div>
+        <div class="logo">SCHEDULIFY</div>
+        <div class="wave-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#DEF6DE" fill-opacity="1" d="M0,256L12,266.7C24,277,48,299,72,298.7C96,299,120,277,144,234.7C168,192,192,128,216,101.3C240,75,264,85,288,106.7C312,128,336,160,360,149.3C384,139,408,85,432,101.3C456,117,480,203,504,224C528,245,552,203,576,181.3C600,160,624,160,648,149.3C672,139,696,117,720,101.3C744,85,768,75,792,69.3C816,64,840,64,864,58.7C888,53,912,43,936,58.7C960,75,984,117,1008,154.7C1032,192,1056,224,1080,229.3C1104,235,1128,213,1152,213.3C1176,213,1200,235,1224,213.3C1248,192,1272,128,1296,117.3C1320,107,1344,149,1368,149.3C1392,149,1416,107,1428,85.3L1440,64L1440,0L1428,0C1416,0,1392,0,1368,0C1344,0,1320,0,1296,0C1272,0,1248,0,1224,0C1200,0,1176,0,1152,0C1128,0,1104,0,1080,0C1056,0,1032,0,1008,0C984,0,960,0,936,0C912,0,888,0,864,0C840,0,816,0,792,0C768,0,744,0,720,0C696,0,672,0,648,0C624,0,600,0,576,0C552,0,528,0,504,0C480,0,456,0,432,0C408,0,384,0,360,0C336,0,312,0,288,0C264,0,240,0,216,0C192,0,168,0,144,0C120,0,96,0,72,0C48,0,24,0,12,0L0,0Z"></path></svg>
+        </div>
+        
+    </header>
+    <main>
+        <div class="header-container2">
+            <div id="date"></div>
+        </div>
+        <div class="header-container3">
+            <div class="dropdown-container">
+                <label for="dropdown"></label>
+                <select id="dropdown" name="options">
+                    <option value="" disabled selected>Actions...</option>
+                    <option value="option1">Add a new event</option>
+                    <option value="option2">Add a calendar link</option>
+                    <option value="option3">Add a new study habit</option>
+                </select>
+            </div>
+            <div id="popup1" class="popup hidden">
+                <div class="popup-content">
+                    <h2>Add New Event</h2>
+                    <form id="eventForm1">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" name= "eventName" required>
+                        <label for="eventDate">Date of event:</label>
+                        <input type = "date" id="eventDate" name="eventDate"></input>
+                        <label for="eventTimeStart">Time when event starts:(optional)</label>
+                        <input type = "time" id="eventTimeStart" name="eventTimeStart"></input>
+                        <label for="eventTimeEnd">Time when event ends:(optional)</label>
+                        <input type = "time" id="eventTimeEnd" name="eventTimeEnd"></input>
+                        <button type="submit">Add event</button>
+                        <button type="button" id="closePopup1">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="popup2" class="popup hidden">
+                <div class="popup-content">
+                    <h2>Add New Event</h2>
+                    <form id="eventForm2">
+                        <label for="addLink">Event Name:</label>
+                        <input type="text" id="addLink" name="addLink" required>
+                        <button type="submit">Add link</button>
+                        <button type="button" id="closePopup2">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="popup3" class="popup hidden"> 
+                <div class="popup-content">
+                    <h2>Add New Event</h2>
+                    <form id="eventForm3">
+                        <label for="studyHabit">Study habit:</label>
+                        <input type="text" id="studyHabit" name="studyHabit" required>
+                        <button type="submit">Add event</button>
+                        <button type="button" id="closePopup3">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <script>document.getElementById("date").textContent = new Date().toDateString();</script>
+            <div class="main-contents">
+                <div class="tasksWidget">
+                    <div class="to-do-heading">Today's To-Do List:</div>
+                    <div class="to-do-list">
+                        <!--could add icon later-->
+                        <ul id = "task-list">
+                            <li>Task 1</li>
+                            <li>Task 2</li>
+                            <li>Task 3</li>
+                            <li>Task 4</li>
+                        </ul>
+                    </div>
+                    <div class="upcoming-event-header">Upcoming Events:</div>
+                    <div class="upcoming-event-list">
+                        <!--could add icon later-->
+                        <ul id = "event-list">
+                            <li>Event 1</li>
+                            <li>Event 2</li>
+                            <li>Event 3</li>
+                            <li>Event 4</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+        <div id="notification-container" class="notification-container hidden"></div>
+
+    </main>
+
+    <script src="calendar.js" defer></script>
+    <script src="index.js" defer></script>
+    <script src="firebase.js" defer type = "module"></script>
+
+</body>
+</html>
