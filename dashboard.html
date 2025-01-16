@@ -56,10 +56,6 @@
                         <input type="text" id="eventName" name= "eventName" required>
                         <label for="eventDate">Date of event:</label>
                         <input type = "date" id="eventDate" name="eventDate"></input>
-                        <label for="eventTimeStart">Time when event starts:(optional)</label>
-                        <input type = "time" id="eventTimeStart" name="eventTimeStart"></input>
-                        <label for="eventTimeEnd">Time when event ends:(optional)</label>
-                        <input type = "time" id="eventTimeEnd" name="eventTimeEnd"></input>
                         <button type="submit">Add event</button>
                         <button type="button" id="closePopup1">Cancel</button>
                     </form>
@@ -96,20 +92,14 @@
                     <div class="to-do-list">
                         <!--could add icon later-->
                         <ul id = "task-list">
-                            <li>Task 1</li>
-                            <li>Task 2</li>
-                            <li>Task 3</li>
-                            <li>Task 4</li>
+                            <li class = "empty-task-list" id = "empty-task-list">Add more tasks!</li>
                         </ul>
                     </div>
                     <div class="upcoming-event-header">Upcoming Events:</div>
                     <div class="upcoming-event-list">
                         <!--could add icon later-->
                         <ul id = "event-list">
-                            <li>Event 1</li>
-                            <li>Event 2</li>
-                            <li>Event 3</li>
-                            <li>Event 4</li>
+                            <li class = "empty-event-list" id = "empty-event-list">Add more tasks!</li>
                         </ul>
                     </div>
                 </div>
@@ -122,9 +112,13 @@
 
     </main>
 
-    <script src="calendar.js" defer></script>
-    <script src="index.js" defer></script>
+    <script src="calendar.js" defer type = "module"></script>
+    <script src="index.js" defer type = "module"></script>
     <script src="firebase.js" defer type = "module"></script>
+    <script src="firestore.js" defer type = "module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js" defer type = "module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js" defer type = "module"></script>
+
 
 </body>
 </html>
