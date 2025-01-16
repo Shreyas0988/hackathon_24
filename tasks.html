@@ -93,6 +93,9 @@
                         <input type="text" id="event-name" name="event-name" required>
                         <label for="event-date">Date of event:</label>
                         <input type="date" id="event-date" name="event-date" required>
+                        <label for="event-diff">Difficulty of event:</label>
+                        <input class = "event-diff" type="range" id="event-diff" name="event-diff" min = "1" max = "5" value = "1" step = "1" oninput = "updateSliderValue(this.value)" required>
+                        <span id="slider-value">1</span>
                         <button type="submit">Add event!</button>
                         <button type="button" id="closePopup2">Cancel</button>
                     </form>
@@ -103,6 +106,7 @@
                     <div class="event-widget-container" id = "event-widget-container">
                         <h2 class="event-title"></h2>
                         <h2 class="event-date"></h2>
+                        <h2 class="event-diff"></h2>
                         <button class="event-complete"></button>
                     </div>
                 </template>
@@ -113,8 +117,15 @@
     </main>
 
 
-
-
-    <script src="index2.js" defer></script>
+    <script>
+            function updateSliderValue(value) {
+      document.getElementById('slider-value').textContent = value;
+    }
+    </script>
+    <script src="index2.js" defer type = "module"></script>
+    <script src="firebase.js" defer type = "module"></script>
+    <script src="firestore.js" defer type = "module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js" defer type = "module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js" defer type = "module"></script>
 </body>
 </html>
