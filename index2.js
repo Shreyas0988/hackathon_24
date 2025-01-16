@@ -1,60 +1,6 @@
 import { getUid } from "./firebase.js";
-import { dashboardTasks, dashboardEvents } from "./firestore.js";
+import { addEvents, addTasks, removeEvent, removeTask } from "./firestore.js";
 
-
-//function to add elements to any list
-function addToList(str, elementId){
-    const taskList = document.getElementById(elementId);
-    console.log(`taskList : ${taskList}`);
-    const newTask = document.createElement('li');
-    console.log(`taskList : ${newTask}`);
-    newTask.textContent = `${str}`;
-    taskList.appendChild(newTask);
-}
-
-
-
-getUid()
-.then(async uid => {
-    let docIdList = await dashboardTasks(uid);
-    console.log("docidlist: " + docIdList);
-    for (let i = 0; i < docIdList.length; i++){
-        addToList(docIdList[i], "task-list");
-    }
-
-    const list = document.getElementById("task-list");
-    const emptyList = document.getElementById("empty-task-list");
-    emptyList.classList.remove('show');
-    emptyList.classList.add('hide');
-    if (list.getElementsByTagName("li").length == 1){
-        emptyList.classList.remove('hide');
-        emptyList.classList.add('show');
-    }
-
-    let docIdListEvent = await dashboardEvents(uid);
-    console.log("docIdListEvent: " + docIdListEvent);
-    for (let i = 0; i < docIdListEvent.length; i++){
-        addToList(docIdListEvent[i], "event-list");
-    }
-
-    const list2 = document.getElementById("event-list");
-    const emptyList2 = document.getElementById("empty-event-list");
-    emptyList2.classList.remove('show');
-    emptyList2.classList.add('hide');
-    if (list2.getElementsByTagName("li").length == 1){
-        emptyList2.classList.remove('hide');
-        emptyList2.classList.add('show');
-    }
-
-
-    
-})
-.catch(error => {
-    console.log(error); 
-});
-
-
-//check which link is active for the header
 const currentPage = window.location.pathname.split('/').pop();
 const links = document.querySelectorAll('.header-link a');
 links.forEach(link => {
@@ -62,102 +8,6 @@ links.forEach(link => {
         link.classList.add('active');
     }
 });
-
-
-//get all the objects using the ids of the popups
-const dropdownMenu = document.getElementById('dropdown');
-const popup1 = document.getElementById('popup1');
-const popup2 = document.getElementById('popup2');
-const popup3 = document.getElementById('popup3');
-const closePopupButton1 = document.getElementById('closePopup1');
-const closePopupButton2 = document.getElementById('closePopup2');
-const closePopupButton3 = document.getElementById('closePopup3');
-const taskForm1 = document.getElementById('eventForm1');
-const taskForm2 = document.getElementById('eventForm2');
-const taskForm3 = document.getElementById('eventForm3');
-
-//checks which option is selected
-dropdownMenu.addEventListener('change', () => {
-    const selectedValue = dropdownMenu.value;
-
-    //prevents duplicate listenings causing other errors
-    taskForm1.removeEventListener('submit', submitForm1);
-    taskForm2.removeEventListener('submit', submitForm2);
-    taskForm3.removeEventListener('submit', submitForm3);
-
-    //option1 popup
-    if (selectedValue === 'option1') {
-        popup1.classList.remove('hidden');
-        dropdownMenu.value = '';
-
-        taskForm1.addEventListener('submit', submitForm1);//calls below function
-
-        closePopupButton1.addEventListener('click', () => {//for the cancel button
-            popup1.classList.add('hidden');
-        });
-    }
-
-    //option2 popup
-    else if (selectedValue === 'option2') {
-        popup2.classList.remove('hidden');
-        dropdownMenu.value = '';
-
-        taskForm2.addEventListener('submit', submitForm2);
-
-        closePopupButton2.addEventListener('click', () => {
-            popup2.classList.add('hidden');
-        });
-    }
-
-    //option3 popup
-    else if (selectedValue === 'option3') {
-        popup3.classList.remove('hidden');
-        dropdownMenu.value = '';
-
-        taskForm3.addEventListener('submit', submitForm3);
-
-        closePopupButton3.addEventListener('click', () => {
-            popup3.classList.add('hidden');
-        });
-    }
-});
-
-//function used for clean code
-function submitForm1(e) {//first option
-    e.preventDefault();
-    const eventName = document.getElementById('eventName').value;
-    const eventDate = document.getElementById('eventDate').value;
-    //const eventDiff = document.getElementById('eventDiff').value;
-
-    console.log(`Event Added: ${eventName}, Date: ${eventDate}`);
-
-    showNotification(`Event "${eventName}" added successfully!`);
-    popup1.classList.add('hidden');
-    
-    taskForm1.reset();
-    
-}
-
-function submitForm2(e) {//second option
-    e.preventDefault();
-    const link = document.getElementById('addLink').value;
-    console.log(`Link Added: ${link}`);
-    
-    showNotification(`Calendar link added successfully!`);
-    popup2.classList.add('hidden');
-    taskForm2.reset();
-}
-
-function submitForm3(e) {//third option
-    e.preventDefault();
-    const studyhabit = document.getElementById('studyHabit').value;
-
-    console.log(`Study Habit Added: ${studyhabit}`);
-
-    showNotification(`Study Habit Added: ${studyhabit}`);
-    popup3.classList.add('hidden');
-    taskForm3.reset();
-}
 
 function showNotification(message, duration = 3000) {
     const notificationContainer = document.getElementById('notification-container');
@@ -178,4 +28,207 @@ function showNotification(message, duration = 3000) {
         }, 500);
 
     }, duration);
+}
+
+export function createTaskWidget(title, priority, time, due, containerId) {
+    const displayEmptyText = document.getElementById('empty-container');
+    displayEmptyText.classList.remove('show');
+    displayEmptyText.classList.add('hide');
+
+    
+    const template = document.getElementById('task-template');
+    const widgetClone = template.content.cloneNode(true);
+    const container = document.getElementById(containerId);
+
+    widgetClone.querySelector('.task-title').textContent = title;
+    widgetClone.querySelector('.task-priority').textContent = "Priority level: " + priority;
+    widgetClone.querySelector('.task-time').textContent = "Time to complete: " + time + " hours";
+    widgetClone.querySelector('.task-due').textContent = "Task due: " + due;
+    const completeButton = widgetClone.querySelector('button');
+    completeButton.textContent = "Mark as complete";
+
+    completeButton.addEventListener('click', (event) => {
+        const widget = event.target.closest('.widget-container');
+        if (widget) {
+            widget.remove();
+            getUid()
+            .then(uid => {
+                removeTask(uid, title,priority, time, due);
+                
+            })
+            .catch(error => {
+                console.log(error);  // Handle the error (UID not available yet)
+            });
+            showNotification("Successfully completed task!")
+            if (container.children.length == 2){/*imp: if adding more children to 'task-container', increase it to (n additonal children + current amount)*/
+                console.log('yay')
+                displayEmptyText.classList.remove('hide');
+                displayEmptyText.classList.add('show');
+            }
+            else{
+                displayEmptyText.classList.remove('show');
+                displayEmptyText.classList.add('hide');
+            }
+        }
+    });
+    if (container) {
+        container.appendChild(widgetClone);
+    }
+}
+
+//test cases
+//for (let i = 1; i <= 6; i++) {
+//    createTaskWidget(`Task ${i}`, "high", i, `January 08 2025`, "task-container");
+//}
+
+
+export function createEventWidget(title, date, diff, containerId) {
+    const displayEmptyText = document.getElementById('event-empty-container');
+    displayEmptyText.classList.remove('show');
+    displayEmptyText.classList.add('hide');
+
+    
+    const template = document.getElementById('event-template');
+    const widgetClone = template.content.cloneNode(true);
+    const container = document.getElementById(containerId);
+
+    widgetClone.querySelector('.event-title').textContent = title;
+    widgetClone.querySelector('.event-date').textContent = "Date: " + date;
+    widgetClone.querySelector('.event-diff').textContent = "Difficulty: " + diff;
+    const completeButton = widgetClone.querySelector('button');
+    completeButton.textContent = "Mark as complete";
+    console.log(completeButton);
+
+    completeButton.addEventListener('click', (event) => {
+        const widget = event.target.closest('.event-widget-container');
+        if (widget) {
+            widget.remove();
+            getUid()
+            .then(uid => {
+                removeEvent(uid, title, diff, date);
+                
+            })
+            .catch(error => {
+                console.log(error);  // Handle the error (UID not available yet)
+            });
+            showNotification("Successfully completed task!")
+            if (container.children.length == 2){/*imp: if adding more children to 'task-container', increase it to (current amount + n additonal children )*/
+                console.log('yay')
+                displayEmptyText.classList.remove('hide');
+                displayEmptyText.classList.add('show');
+            }
+            else{
+                displayEmptyText.classList.remove('show');
+                displayEmptyText.classList.add('hide');
+            }
+        }
+    });
+    if (container) {
+        container.appendChild(widgetClone);
+    }
+}
+
+//for (let i = 1; i <= 6; i++) {
+//    createEventWidget(`Event ${i}`, `January 08 2025`, "event-container");
+//}
+
+function formatDate(str){
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const [year, month, day] = str.split('-');
+
+    const monthInt = parseInt(month,10);
+    return String(months[monthInt-1] + " " + day + " " + year);
+
+
+}
+
+const addTaskButton = document.getElementById("addTasks");
+
+if (addTaskButton){
+    addTaskButton.addEventListener('click', (event) =>{
+        console.log('works');
+        const popup1 = document.getElementById("popup1")
+        const taskForm1 = document.getElementById('form1');
+        popup1.classList.remove('hidden');
+
+
+        taskForm1.addEventListener('submit', submitForm1);//calls below function
+        const closePopupButton1 = document.getElementById("closePopup1");
+
+        closePopupButton1.addEventListener('click', () => {//for the cancel button
+            popup1.classList.add('hidden');
+        });
+    });
+}
+
+async function submitForm1(e) {//second option
+    const popup1 = document.getElementById("popup1")
+    const taskForm1 = document.getElementById('form1');
+    e.preventDefault();
+    const taskName = document.getElementById('task-name').value;
+    const taskPriority = document.getElementById('dropdown-task-priority').value;
+    const taskTime = document.getElementById('task-time').value;
+    const taskDue = document.getElementById('task-dueDate').value;
+    console.log(`name : ${taskName}, taskTime : ${taskTime}, taskDue : ${taskDue}, taskPriority : ${taskPriority}`);
+    createTaskWidget(taskName, taskPriority, taskTime, formatDate(taskDue), "task-container");
+    getUid()
+    .then(uid => {
+        console.log("User UID: " + uid);
+        addTasks(uid, taskName, taskPriority, taskTime, taskDue);
+        
+    })
+    .catch(error => {
+        console.log(error);  // Handle the error (UID not available yet)
+    });
+    
+    showNotification(`Task added succesfully added successfully!`);
+    popup1.classList.add('hidden');
+    taskForm1.reset();
+}
+
+
+const addEventButton = document.getElementById("addEvents");
+
+if (addEventButton){
+    addEventButton.addEventListener('click', (event) =>{
+        console.log('works2');
+        const popup1 = document.getElementById("popup2")
+        const taskForm1 = document.getElementById('form2');
+        popup1.classList.remove('hidden');
+
+
+        taskForm1.addEventListener('submit', submitForm2);//calls below function
+        const closePopupButton1 = document.getElementById("closePopup2");
+
+        closePopupButton1.addEventListener('click', () => {//for the cancel button
+            popup1.classList.add('hidden');
+        });
+    });
+}
+function submitForm2(e) {//second option
+    const popup1 = document.getElementById("popup2")
+    const taskForm1 = document.getElementById('form2');
+    e.preventDefault();
+    const eventName = document.getElementById('event-name').value;
+    const eventDate = document.getElementById('event-date').value;
+    const eventDiff = document.getElementById('event-diff').value;
+    console.log(`name : ${eventName}, taskDate : ${eventDate}, eventdiff: ${eventDiff}`);
+    createEventWidget(eventName, formatDate(eventDate), eventDiff, "event-container");
+
+    getUid()
+    .then(uid => {
+        console.log("User UID: " + uid);
+        addEvents(uid, eventName, eventDate, eventDiff);
+        
+    })
+    .catch(error => {
+        console.log(error);  // Handle the error (UID not available yet)
+    });
+    
+    showNotification(`Event added succesfully added successfully!`);
+    popup1.classList.add('hidden');
+    taskForm1.reset();
 }
