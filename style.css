@@ -67,7 +67,7 @@ html, body {
     overflow: hidden;
     background: #B1E5F2; 
     z-index : 2;
-    margin-bottom: -82px;
+    margin-bottom: -212px;
 }
 
 .wave {
@@ -89,7 +89,7 @@ html, body {
     z-index: 3;
 }
 .header-container3{
-    z-index: 3;
+    z-index: auto;
 }
 
 #date {
@@ -105,9 +105,12 @@ html, body {
 .dropdown-container {
     flex: 1; 
     text-align: right; 
+    position: relative;
+    z-index : 10;
 
 }
 select {
+    z-index : 3;
     -webkit-appearance: none; /*safari */
     -moz-appearance: none; /*firefox */
     appearance: none; /*remove all previous styles from the dropdown widget*/
@@ -141,6 +144,7 @@ select {
 }
 
 .tasksWidget {
+    z-index : 3;
     width: 19%;
     height: 1000px; 
     box-sizing: border-box; 
@@ -165,9 +169,11 @@ select {
     text-align: center;
     color: black;
     font-weight : bolder;
+    z-index : 3;
 }
 
 .tasksWidget .upcoming-event-header{
+    z-index : 3;
     appearance: none;
     z-index: 3;
     font-size: 30px;
@@ -180,6 +186,7 @@ select {
 }
 
 .calendar-container{
+    z-index : 3;
     padding-left: 180px;
     width: 1000px; 
     height : 30%;
@@ -316,3 +323,21 @@ select {
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+.empty-task-list.hide, .empty-event-list.hide{
+    color : white;
+    position: absolute;
+    opacity : 0;
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight: bold;
+}
+
+.empty-task-list.show, .empty-task-list, .empty-event-list.show, .empty-event-list{
+    color : white;
+    position: absolute;
+    opacity : 1;
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight: bold;
+
+}
