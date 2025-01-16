@@ -68,7 +68,7 @@ html, body {
     overflow: hidden;
     background: #B1E5F2;
     z-index: 2;
-    margin-bottom: -82px;
+    margin-bottom: -212px;
     transition: transform 1s ease-out;
 }
 
@@ -137,7 +137,7 @@ html, body {
 
 
 #task-container, #event-container {
-    z-index: 2;
+    z-index: 4;
     margin-top: 100px;
     background-color: #285329;
     height: 600px; 
@@ -145,7 +145,7 @@ html, body {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 100px;
-    border-radius: 5px;
+    border-radius: 15px;
     padding-left : 90px;
     padding-top : 25px;
     overflow-y: auto; 
@@ -188,7 +188,7 @@ html, body {
     text-align : center;
 }
 
-.task-time, .task-due, .event-date {
+.task-time, .task-due, .event-date, .event-diff {
     text-align: center;
     font-size: 16px;
     font-family: 'merriweather';
@@ -247,9 +247,14 @@ html, body {
 }
 
 .empty-container.hide, .event-empty-container.hide{
+    color : white;
     position: absolute;
     opacity : 0;
-    background-color: white;
+    font-size : 36px;
+    font-family : "fredoka";
+    font-weight: bold;
+
+    right : 35%;
 }
 .empty-container.show, .event-empty-container.show{
     color : white;
