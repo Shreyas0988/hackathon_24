@@ -1,0 +1,83 @@
+{
+    "VX81q8CC25PQQW6F0gT3sBQ24FO2": {
+        "event4": {
+            "event_name": "econ summative",
+            "difficulty": "5",
+            "due_date": "2025-01-27",
+            "total_study_hours": 12.0,
+            "daily_schedule": [
+                {
+                    "event_id": "event4",
+                    "date": "2025-01-23",
+                    "hours": 6.0
+                },
+                {
+                    "event_id": "event4",
+                    "date": "2025-01-24",
+                    "hours": 6.0
+                }
+            ]
+        },
+        "event2": {
+            "event_name": "math summative",
+            "difficulty": "4",
+            "due_date": "2025-01-31",
+            "total_study_hours": 12.0,
+            "daily_schedule": [
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-23",
+                    "hours": 2.0
+                },
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-24",
+                    "hours": 2.0
+                },
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-25",
+                    "hours": 2.0
+                },
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-26",
+                    "hours": 2.0
+                },
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-27",
+                    "hours": 2.0
+                },
+                {
+                    "event_id": "event2",
+                    "date": "2025-01-28",
+                    "hours": 2.0
+                }
+            ]
+        },
+        "event3": {
+            "event_name": "apcs summative",
+            "difficulty": "2",
+            "due_date": "2025-01-28",
+            "total_study_hours": 12.0,
+            "daily_schedule": [
+                {
+                    "event_id": "event3",
+                    "date": "2025-01-23",
+                    "hours": 4.0
+                },
+                {
+                    "event_id": "event3",
+                    "date": "2025-01-24",
+                    "hours": 4.0
+                },
+                {
+                    "event_id": "event3",
+                    "date": "2025-01-25",
+                    "hours": 4.0
+                }
+            ]
+        }
+    }
+}
