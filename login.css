@@ -1,57 +1,103 @@
-:root {
-    background-image: url("images/white_background1.jpg");
-}
-.header{
-    background-color: white;
-    border: 5px solid black;
-}
-.greeting{
-    font-size : 36px;
-    font-family : "fredoka";
-    font-weight: 600;
-    text-align: center;
+body {
+    margin: 0;
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.logo{
-    font-size : 96px;
-    font-family: "fredoka";
+.header {
     text-align: center;
-    letter-spacing: 25px;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease;
+    max-width: 800px;
+}
+
+.greeting {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.logo {
+    font-size: 72px;
+    letter-spacing: 15px;
     font-weight: 800;
 }
 
-.login-container{
+.login-container {
     display: flex;
     justify-content: center;
-    align-self: center;
-}
-.login-box{
-    width : 455px;
-    height : 483px;
-    background-color: #C8E6C9;
-    border-radius : 36px;
-    margin-top : 60px;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    animation: zoomIn 1s ease;
 }
 
-.login-header{
-    font-size : 36px;
-    font-family : "fredoka";
-    font-weight : 600;
+.login-box {
+    width: 500px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-10px);
+}
+
+.login-header {
+    font-size: 24px;
+    font-weight: 600;
     text-align: center;
-    padding : 15px;
+    margin-bottom: 30px;
 }
-.image-container{
-    appearance: none;
-    background-color: #E7E7E7;
-    width : 256px;
-    height : 243px;
-    border-radius : 36px;
+
+.image-container {
+    background-color: #e7e7e7;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     display: flex;
-    align-self: center;
     justify-content: center;
-    margin : 70px auto; /*sets the top and bottom margins to 0, while setting left and right to auto(therefore moving it to center)*/
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
-.image{
-    display: flex;
-    height: 100%;
+
+.image-container:hover {
+    transform: scale(1.1);
+}
+
+.image {
+    width: 60%;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

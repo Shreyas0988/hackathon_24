@@ -85,7 +85,7 @@ export async function getUid() {
     if (user) {
         return user.uid;
     } else {
-        // If the user is not signed in, wait for `onAuthStateChanged`
+        //if the user is not signed in, wait for `onAuthStateChanged`
         return new Promise((resolve, reject) => {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -97,3 +97,4 @@ export async function getUid() {
         });
     }
 }
+

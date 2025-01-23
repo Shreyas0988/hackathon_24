@@ -15,12 +15,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/ical.js/dist/ical.min.js" defer type="module"></script>
 </head>
 <body>
     <header class = "header-container">
         <div class="header">
             <div class="left-header">
-                <div class = "header-link"> <a href="dashboard.html">Dashboard</a></div>
+                <div class = "header-link"> <a class = "active" href="dashboard.html">Dashboard</a></div>
                 <div class="header-link"><a href="tasks.html">Tasks</a></div>
             </div>
             <div class="right-header">
@@ -35,6 +36,18 @@
         
     </header>
     <main>
+        <div id="popup-free-time" style="z-index : 5;display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 300px;">
+            <div id="free-time-content">
+                <h3 style="margin-top: 0;">Enter your free hours</h3>
+                <form id="free-hours-form">
+                    <div id="form-fields">
+                        <!--fields will be dynamically generated here-->
+                    </div>
+                    <button type="submit" style="margin-top: 10px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                </form>
+            </div>
+        </div>
+        
         <div class="header-container2">
             <div id="date"></div>
         </div>
@@ -42,10 +55,9 @@
             <div class="dropdown-container">
                 <label for="dropdown"></label>
                 <select id="dropdown" name="options">
-                    <option value="" disabled selected>Actions...</option>
+                    <option value="" disabled selected>Quick actions...</option>
                     <option value="option1">Add a new event</option>
                     <option value="option2">Add a calendar link</option>
-                    <option value="option3">Add a new study habit</option>
                 </select>
             </div>
             <div id="popup1" class="popup hidden">
@@ -55,7 +67,9 @@
                         <label for="eventName">Event Name:</label>
                         <input type="text" id="eventName" name= "eventName" required>
                         <label for="eventDate">Date of event:</label>
-                        <input type = "date" id="eventDate" name="eventDate"></input>
+                        <input type = "date" id="eventDate" name="eventDate" required></input>
+                        <input class = "eventDiff" type="range" id="eventDiff" name="eventDiff" min = "1" max = "5" value = "1" step = "1" oninput = "updateSliderValue(this.value)" required>
+                        <span id="slider-value">1</span>
                         <button type="submit">Add event</button>
                         <button type="button" id="closePopup1">Cancel</button>
                     </form>
@@ -74,17 +88,6 @@
                 </div>
             </div>
 
-            <div id="popup3" class="popup hidden"> 
-                <div class="popup-content">
-                    <h2>Add New Event</h2>
-                    <form id="eventForm3">
-                        <label for="studyHabit">Study habit:</label>
-                        <input type="text" id="studyHabit" name="studyHabit" required>
-                        <button type="submit">Add event</button>
-                        <button type="button" id="closePopup3">Cancel</button>
-                    </form>
-                </div>
-            </div>
             <script>document.getElementById("date").textContent = new Date().toDateString();</script>
             <div class="main-contents">
                 <div class="tasksWidget">
@@ -109,15 +112,24 @@
             </div>
         </div>
         <div id="notification-container" class="notification-container hidden"></div>
+        <div id="loading-spinner" class="hide"><div class="spinner"></div></div>
+          
 
     </main>
+    <script>
+        function updateSliderValue(value) {
+            document.getElementById('slider-value').textContent = value;
+        }
+        </script>
 
-    <script src="calendar.js" defer type = "module"></script>
     <script src="index.js" defer type = "module"></script>
     <script src="firebase.js" defer type = "module"></script>
     <script src="firestore.js" defer type = "module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js" defer type = "module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js" defer type = "module"></script>
+    <script src="calendar.js" defer type = "module"></script>
+    <script src="calendar2.js" defer type="module"></script>
+    
 
 
 </body>

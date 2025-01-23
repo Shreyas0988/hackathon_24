@@ -9,6 +9,21 @@ links.forEach(link => {
     }
 });
 
+const loadingSpinner = document.getElementById('loading-spinner');
+
+
+function showLoadingSpinner() {
+  loadingSpinner.classList.remove('hide');
+  loadingSpinner.classList.add('show');
+}
+
+
+function hideLoadingSpinner() {
+  loadingSpinner.classList.remove('show');
+  loadingSpinner.classList.add('hide');
+}
+
+
 function showNotification(message, duration = 3000) {
     const notificationContainer = document.getElementById('notification-container');
     notificationContainer.textContent = message;
@@ -30,56 +45,6 @@ function showNotification(message, duration = 3000) {
     }, duration);
 }
 
-export function createTaskWidget(title, priority, time, due, containerId) {
-    const displayEmptyText = document.getElementById('empty-container');
-    displayEmptyText.classList.remove('show');
-    displayEmptyText.classList.add('hide');
-
-    
-    const template = document.getElementById('task-template');
-    const widgetClone = template.content.cloneNode(true);
-    const container = document.getElementById(containerId);
-
-    widgetClone.querySelector('.task-title').textContent = title;
-    widgetClone.querySelector('.task-priority').textContent = "Priority level: " + priority;
-    widgetClone.querySelector('.task-time').textContent = "Time to complete: " + time + " hours";
-    widgetClone.querySelector('.task-due').textContent = "Task due: " + due;
-    const completeButton = widgetClone.querySelector('button');
-    completeButton.textContent = "Mark as complete";
-
-    completeButton.addEventListener('click', (event) => {
-        const widget = event.target.closest('.widget-container');
-        if (widget) {
-            widget.remove();
-            getUid()
-            .then(uid => {
-                removeTask(uid, title,priority, time, due);
-                
-            })
-            .catch(error => {
-                console.log(error);  // Handle the error (UID not available yet)
-            });
-            showNotification("Successfully completed task!")
-            if (container.children.length == 2){/*imp: if adding more children to 'task-container', increase it to (n additonal children + current amount)*/
-                console.log('yay')
-                displayEmptyText.classList.remove('hide');
-                displayEmptyText.classList.add('show');
-            }
-            else{
-                displayEmptyText.classList.remove('show');
-                displayEmptyText.classList.add('hide');
-            }
-        }
-    });
-    if (container) {
-        container.appendChild(widgetClone);
-    }
-}
-
-//test cases
-//for (let i = 1; i <= 6; i++) {
-//    createTaskWidget(`Task ${i}`, "high", i, `January 08 2025`, "task-container");
-//}
 
 
 export function createEventWidget(title, date, diff, containerId) {
@@ -104,8 +69,10 @@ export function createEventWidget(title, date, diff, containerId) {
         if (widget) {
             widget.remove();
             getUid()
-            .then(uid => {
-                removeEvent(uid, title, diff, date);
+            .then(async uid => {
+                showLoadingSpinner();
+                await removeEvent(uid, title, date, diff);
+                hideLoadingSpinner();
                 
             })
             .catch(error => {
@@ -127,10 +94,6 @@ export function createEventWidget(title, date, diff, containerId) {
         container.appendChild(widgetClone);
     }
 }
-
-//for (let i = 1; i <= 6; i++) {
-//    createEventWidget(`Event ${i}`, `January 08 2025`, "event-container");
-//}
 
 function formatDate(str){
     const months = [
@@ -175,9 +138,11 @@ async function submitForm1(e) {//second option
     console.log(`name : ${taskName}, taskTime : ${taskTime}, taskDue : ${taskDue}, taskPriority : ${taskPriority}`);
     createTaskWidget(taskName, taskPriority, taskTime, formatDate(taskDue), "task-container");
     getUid()
-    .then(uid => {
+    .then(async uid => {
         console.log("User UID: " + uid);
-        addTasks(uid, taskName, taskPriority, taskTime, taskDue);
+        showLoadingSpinner();
+        await addTasks(uid, taskName, taskPriority, taskTime, taskDue);
+        hideLoadingSpinner();
         
     })
     .catch(error => {
@@ -219,9 +184,11 @@ function submitForm2(e) {//second option
     createEventWidget(eventName, formatDate(eventDate), eventDiff, "event-container");
 
     getUid()
-    .then(uid => {
+    .then(async uid  => {
         console.log("User UID: " + uid);
-        addEvents(uid, eventName, eventDate, eventDiff);
+        showLoadingSpinner();
+        await addEvents(uid, eventName, eventDate, eventDiff);
+        hideLoadingSpinner();
         
     })
     .catch(error => {
@@ -231,4 +198,8 @@ function submitForm2(e) {//second option
     showNotification(`Event added succesfully added successfully!`);
     popup1.classList.add('hidden');
     taskForm1.reset();
+}
+
+export function createTaskWidget(title, priority, time, due, containerId) {
+    
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <link rel="stylesheet" href="style4.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Profile</title>
+</head>
+<body>
+    <header class="header-container">
+        <div class="header">
+            <div class="left-header">
+                <div class="header-link"><a href="dashboard.html">Dashboard</a></div>
+                <div class="header-link"><a href="tasks.html">Tasks</a></div>
+            </div>
+            <div class="right-header">
+                <div class="header-link"><a href="chatbot.html">ChatBot</a></div>
+                <div class="header-link"><a class="active" href="profile.html">Profile</a></div>
+            </div>
+        </div>
+        <div class="logo">SCHEDULIFY</div>
+        <div class="wave-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#DEF6DE" fill-opacity="1" d="M0,96L21.8,112C43.6,128,87,160,131,165.3C174.5,171,218,149,262,154.7C305.5,160,349,192,393,176C436.4,160,480,96,524,96C567.3,96,611,160,655,208C698.2,256,742,288,785,266.7C829.1,245,873,171,916,149.3C960,128,1004,160,1047,165.3C1090.9,171,1135,149,1178,154.7C1221.8,160,1265,192,1309,192C1352.7,192,1396,160,1418,144L1440,128L1440,0L1418.2,0C1396.4,0,1353,0,1309,0C1265.5,0,1222,0,1178,0C1134.5,0,1091,0,1047,0C1003.6,0,960,0,916,0C872.7,0,829,0,785,0C741.8,0,698,0,655,0C610.9,0,567,0,524,0C480,0,436,0,393,0C349.1,0,305,0,262,0C218.2,0,175,0,131,0C87.3,0,44,0,22,0L0,0Z"></path>
+            </svg>
+        </div>
+    </header>
+    <main class="profile-container">
+        <div class="profile-card">
+            <img id="profile-picture" src="" alt="Profile Picture">
+            <h2 id="user-name">John Doe</h2>
+            <p id="user-email">johndoe@gmail.com</p>
+            <button class="google-logout-button" id="google-logout-button">Sign out</button>
+        </div>
+        <div class="additional-info">
+            <h3>Additional Information</h3>
+            <p><div id="form-fields">
+
+            </div></p>
+        </div>
+    
+    </main>
+    <div id="loading-spinner" class="hide">
+        <div class="spinner"></div>
+      </div>      
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js" defer type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js" defer type="module"></script>
+    <script src="firebase.js" defer type="module"></script>
+    <script src="index4.js" defer type="module"></script>
+</body>
+<footer>
+    
+</footer>
+</html>
